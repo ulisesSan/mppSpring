@@ -1,6 +1,10 @@
 package com.telcel.mpp.service;
 
+import java.io.InputStream;
+
 public interface Service {
 
-     public void ReadMpp();
+    void ReadMpp();
+
+    void uploadDocument(InputStream inputStream);
 }

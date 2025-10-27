@@ -2,21 +2,30 @@ package com.telcel.mpp.service.impl;
 
 import com.telcel.mpp.service.Service;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.mpxj.*;
 import org.mpxj.mpp.MPPReader;
 import org.mpxj.mpx.MPXWriter;
 import org.mpxj.reader.ProjectReader;
 import org.mpxj.reader.UniversalProjectReader;
 import org.mpxj.writer.ProjectWriter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.UUID;
 
 @Slf4j
 public class MppImpl implements Service {
     ProjectWriter writer;
     MPPReader reader;
     ProjectFile projectFile;
+
+    private final String UPLOAD_DIR = "../mppSpring";
 
     public void ReadMpp(){
 
@@ -63,6 +72,17 @@ public class MppImpl implements Service {
             //log.info( projectFile.getProjectProperties().toString() );
         }catch(MPXJException | IOException e){
             log.error("Error: {}", e);
+        }
+    }
+
+    @Autowired
+    public void uploadDocument(InputStream inputStream){
+        try {
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            Path path = Paths.get(UPLOAD_DIR + "/" + UUID.randomUUID()+".mpp");
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            log.error("Hubo un error al subir archivo "+ e);
         }
     }
 }

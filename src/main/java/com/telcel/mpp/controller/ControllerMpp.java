@@ -2,9 +2,10 @@ package com.telcel.mpp.controller;
 
 import com.telcel.mpp.service.impl.MppImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/")
@@ -17,4 +18,13 @@ public class ControllerMpp {
         return "Hola";
     }
 
+    @PostMapping("/upload")
+    public void uploadDocument(@RequestParam("file") MultipartFile file){
+        try{
+            mppImpl.uploadDocument(file.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
