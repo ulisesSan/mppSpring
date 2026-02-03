@@ -25,8 +25,7 @@ import net.sf.mpxj.Task;
 @Slf4j
 
 public class MppImpl implements MppService {
-    private MppOperations mppOperations = new MppOperations();
-    private final String UPLOAD_DIR = "../mppSpring";
+    private final MppOperations mppOperations = new MppOperations();
     private  MppModel mppModel = new MppModel();
     //private MppModel2 model2 = new MppModel2();
     private List<MppModel2> res = new ArrayList<>();
@@ -35,6 +34,7 @@ public class MppImpl implements MppService {
     public ResponseEntity<List<MppModel2>> uploadDocument(MultipartFile inputStream){
         try {
             byte[] bytes = IOUtils.toByteArray(inputStream.getInputStream());
+            String UPLOAD_DIR = "../mppSpring";
             Path path = Paths.get(UPLOAD_DIR + "/" + inputStream.getName()+".mpp");
             Files.write(path, bytes);
             mppModel = MppOperations.ReadMpp();

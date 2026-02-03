@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 public class ControllerMpp {
-    private MppImpl mppImpl = new MppImpl();
+    private final MppImpl mppImpl = new MppImpl();
 
     @PostMapping("/upload")
     public ResponseEntity<List<MppModel2>> uploadDocument(@RequestParam("file") MultipartFile file){

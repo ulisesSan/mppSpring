@@ -13,18 +13,15 @@ import java.io.IOException;
 @Slf4j
 public class MppOperations {
 
-    private static ProjectWriter writer;
-    private static MPPReader reader;
-    private static ProjectFile projectFile;
     private static MppModel mppModel;
 
     public static MppModel ReadMpp(){
 
         try{
-            writer = new MPXWriter();
-            reader = new MPPReader();
+            ProjectWriter writer = new MPXWriter();
+            MPPReader reader = new MPPReader();
             reader.setReadPresentationData(true);
-            projectFile = reader.read("../mppSpring/file.mpp");
+            ProjectFile projectFile = reader.read("../mppSpring/file.mpp");
 
 
 
@@ -48,7 +45,7 @@ public class MppOperations {
 
             //log.info( projectFile.getProjectProperties().toString() );
         }catch(MPXJException | IOException e){
-            log.error("Error: {}", e);
+            log.error("Error: ", e);
         }
         return mppModel;
     }
