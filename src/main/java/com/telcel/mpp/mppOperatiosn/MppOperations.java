@@ -2,12 +2,12 @@ package com.telcel.mpp.mppOperatiosn;
 
 import com.telcel.mpp.models.MppModel;
 import lombok.extern.slf4j.Slf4j;
-import org.mpxj.MPXJException;
-import org.mpxj.ProjectFile;
-import org.mpxj.ProjectProperties;
-import org.mpxj.mpp.MPPReader;
-import org.mpxj.mpx.MPXWriter;
-import org.mpxj.writer.ProjectWriter;
+import net.sf.mpxj.MPXJException;
+import net.sf.mpxj.ProjectFile;
+import net.sf.mpxj.ProjectProperties;
+import net.sf.mpxj.mpp.MPPReader;
+import net.sf.mpxj.mpx.MPXWriter;
+import net.sf.mpxj.writer.ProjectWriter;
 
 import java.io.IOException;
 @Slf4j
@@ -29,25 +29,6 @@ public class MppOperations {
 
 
             writer.write(projectFile,"/home/ulises/Descargas/de_mpx.mpx");
-            //projectFile.setBaseline(projectFile, 12);
-
-//            log.info(projectFile.getResources().toString());
-//            //log.info(projectFile.getBaseline().toString());
-//            log.info(projectFile.getActivityCodes().toString());
-//            log.info(projectFile.getBaselineCalendar().toString());
-//            log.info(projectFile.getCalendars().toString());
-//            log.info(projectFile.getChildTasks().toString());
-//            log.info(projectFile.getBaselineCalendar().getName().toString());
-//            log.info(projectFile.getTables().toString());
-//            log.info(projectFile.getViews().toString());
-//            //log.info(projectFile.getProjectProperties().getName().toString());
-//            log.info(projectFile.getProjectProperties().toString());
-//            log.info(projectFile.getProjectProperties().getWork().toString());
-////            for (Resource resource : projectFile.getResources())
-////            {
-////                System.out.println("Resource: " + resource.getName()
-////                        + " (Unique ID=" + resource.getUniqueID() + ")");
-////            }
             ProjectProperties properties = projectFile.getProjectProperties();
             log.info(properties.getWork().toString());
 

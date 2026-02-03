@@ -1,6 +1,7 @@
 package com.telcel.mpp.controller;
 
 import com.telcel.mpp.models.MppModel;
+import com.telcel.mpp.models.MppModel2;
 import com.telcel.mpp.service.impl.MppImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -15,7 +18,7 @@ public class ControllerMpp {
     private MppImpl mppImpl = new MppImpl();
 
     @PostMapping("/upload")
-    public ResponseEntity<MppModel> uploadDocument(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<List<MppModel2>> uploadDocument(@RequestParam("file") MultipartFile file){
         return mppImpl.uploadDocument(file);
     }
 }
