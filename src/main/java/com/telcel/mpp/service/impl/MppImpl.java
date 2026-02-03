@@ -3,7 +3,7 @@ package com.telcel.mpp.service.impl;
 import com.telcel.mpp.models.MppModel;
 import com.telcel.mpp.models.MppModel2;
 import com.telcel.mpp.mppOperatiosn.MppOperations;
-import com.telcel.mpp.service.Service;
+import com.telcel.mpp.service.MppService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import net.sf.mpxj.reader.UniversalProjectReader;
@@ -17,13 +17,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;;
+import java.util.List;
 import net.sf.mpxj.ProjectFile;
 import net.sf.mpxj.Task;
 
 
 @Slf4j
-public class MppImpl implements Service {
+
+public class MppImpl implements MppService {
     private MppOperations mppOperations = new MppOperations();
     private final String UPLOAD_DIR = "../mppSpring";
     private  MppModel mppModel = new MppModel();

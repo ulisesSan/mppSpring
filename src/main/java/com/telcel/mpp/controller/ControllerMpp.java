@@ -1,15 +1,11 @@
 package com.telcel.mpp.controller;
 
-import com.telcel.mpp.models.MppModel;
 import com.telcel.mpp.models.MppModel2;
 import com.telcel.mpp.service.impl.MppImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
