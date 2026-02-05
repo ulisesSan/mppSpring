@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class MppModel {
-
-    private String companyName;
+    private String taskName;
     private String startDate;
-    private String finishDate;
-    private String nameFile;
-
+    private String endDate;
+    private String Duration;
+    private String percentageComplete;
+    private String predecessor;
+    private String predecessors;
 }
