@@ -37,35 +37,41 @@ public class MppOperations {
             log.info("Proyecto: " + project.getProjectProperties().getProjectTitle());
             // Recorrer todas las tareas
             for (Task task : project.getTasks()) {
-                MppModel model2 = new MppModel();
+
+
+                MppModel model = new MppModel();
                 // Saltamos la tarea "0" que es el resumen del proyecto
                 if (task.getID() == 0) continue;
 
 
-                model2.setTaskName(task.getName());
-                model2.setStartDate(String.valueOf(task.getStart()));
-                model2.setEndDate(String.valueOf(task.getFinish()));
-                model2.setDuration(task.getDuration().toString());
-                model2.setPercentageComplete(task.getPercentageComplete().toString());
+                model.setTaskName(task.getName());
+                model.setStartDate(String.valueOf(task.getStart()));
+                model.setEndDate(String.valueOf(task.getFinish()));
+                model.setDuration(task.getDuration().toString());
+                model.setPercentageComplete(task.getPercentageComplete().toString());
+                model.setHierarchyLevel(task.getOutlineLevel());
 
-                log.info("-----------------------------------");
-                log.info("Tarea: " + task.getName());
-                log.info("Inicio: " + task.getStart());
-                log.info("Fin: " + task.getFinish());
-                log.info("Duración: " + task.getDuration());
-                log.info("% Completado: " + task.getPercentageComplete() + "%");
+
+
+                
+                //log.info("-----------------------------------");
+                //log.info("Tarea: " + task.getName());
+                //log.info("Inicio: " + task.getStart());
+                //log.info("Fin: " + task.getFinish());
+                //log.info("Duración: " + task.getDuration());
+                //log.info("% Completado: " + task.getPercentageComplete() + "%");
 
                 // Ejemplo de cómo ver predecesoras
                 if (!task.getPredecessors().isEmpty()) {
                     log.info("Tiene " + task.getPredecessors().size() + " predecesoras.");
-                    model2.setPredecessor("La actividad tiene como predecesor " + task.getPredecessors().size()+
+                    model.setPredecessor("La actividad tiene como predecesor " + task.getPredecessors().size()+
                             " actividad");
-                    model2.setPredecessors(task.getPredecessors().get(0).toString());
+                    model.setPredecessors(task.getPredecessors().get(0).toString());
 
                 }
 
-                modificarProyecto("../mppSpring/file.mpp");
-                listMpp.add(model2);
+                //modificarProyecto("../mppSpring/file.mpp");
+                listMpp.add(model);
 
             }
         } catch (Exception e) {

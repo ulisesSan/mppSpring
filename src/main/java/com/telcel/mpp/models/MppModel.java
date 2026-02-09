@@ -7,8 +7,9 @@ public class MppModel {
     private String taskName;
     private String startDate;
     private String endDate;
-    private String Duration;
+    private String duration;
     private String percentageComplete;
     private String predecessor;
     private String predecessors;
+    private Integer hierarchyLevel;
 }
