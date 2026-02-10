@@ -1,6 +1,7 @@
 package com.telcel.mpp.mppOperations;
 
 import com.telcel.mpp.models.MppModel;
+import com.telcel.mpp.models.ProjectModelResponse;
 import com.telcel.mpp.models.MppModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import net.sf.mpxj.MPXJException;
 import net.sf.mpxj.ProjectFile;
 import net.sf.mpxj.ProjectProperties;
 import net.sf.mpxj.Task;
+import net.sf.mpxj.TaskContainer;
 import net.sf.mpxj.mpp.MPPReader;
 import net.sf.mpxj.mpx.MPXWriter;
 import net.sf.mpxj.reader.UniversalProjectReader;
@@ -25,22 +27,26 @@ import net.sf.mpxj.mspdi.MSPDIWriter;
 @Slf4j
 public class MppOperations {
 
+    private static ProjectModelResponse projectModelResponse = new ProjectModelResponse();
 
-    public static List<MppModel> ReadMpp(){
+    public static ProjectModelResponse ReadMpp(){
 
         List<MppModel> listMpp = new ArrayList<>();
+        double avanceTareas = 0;
         try {
-            // El UniversalProjectReader detecta automáticamente que es un .mpp
+            
             UniversalProjectReader reader = new UniversalProjectReader();
             ProjectFile project = reader.read("../mppSpring/file.mpp");
 
             log.info("Proyecto: " + project.getProjectProperties().getProjectTitle());
-            // Recorrer todas las tareas
+
+            
+            
             for (Task task : project.getTasks()) {
 
 
                 MppModel model = new MppModel();
-                // Saltamos la tarea "0" que es el resumen del proyecto
+                
                 if (task.getID() == 0) continue;
 
 
@@ -51,33 +57,24 @@ public class MppOperations {
                 model.setPercentageComplete(task.getPercentageComplete().toString());
                 model.setHierarchyLevel(task.getOutlineLevel());
 
-
-
-                
-                //log.info("-----------------------------------");
-                //log.info("Tarea: " + task.getName());
-                //log.info("Inicio: " + task.getStart());
-                //log.info("Fin: " + task.getFinish());
-                //log.info("Duración: " + task.getDuration());
-                //log.info("% Completado: " + task.getPercentageComplete() + "%");
-
-                // Ejemplo de cómo ver predecesoras
                 if (!task.getPredecessors().isEmpty()) {
-                    log.info("Tiene " + task.getPredecessors().size() + " predecesoras.");
                     model.setPredecessor("La actividad tiene como predecesor " + task.getPredecessors().size()+
                             " actividad");
                     model.setPredecessors(task.getPredecessors().get(0).toString());
 
                 }
 
-                //modificarProyecto("../mppSpring/file.mpp");
                 listMpp.add(model);
-
+                avanceTareas = task.getPercentageComplete().doubleValue();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listMpp;
+
+        projectModelResponse.setPersentageComplete(avanceTareas);
+        projectModelResponse.setMpp(listMpp);
+        
+        return projectModelResponse;
     }
 
 

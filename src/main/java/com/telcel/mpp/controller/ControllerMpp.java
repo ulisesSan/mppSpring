@@ -1,6 +1,7 @@
 package com.telcel.mpp.controller;
 
 import com.telcel.mpp.models.MppModel;
+import com.telcel.mpp.models.ProjectModelResponse;
 import com.telcel.mpp.mppOperations.lmStudio;
 import com.telcel.mpp.service.impl.MppImpl;
 
@@ -18,14 +19,14 @@ public class ControllerMpp {
     private final MppImpl mppImpl = new MppImpl();
 
     @PostMapping("/upload")
-    public ResponseEntity<List<MppModel>> uploadDocument(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<ProjectModelResponse>uploadDocument(@RequestParam("file") MultipartFile file){
         return mppImpl.uploadDocument(file);
     }
 
-    @PostMapping("/getiaresponse")
+    //@PostMapping("/getiaresponse")
     public ResponseEntity<String> getIAResponse(@RequestParam("file")MultipartFile file){
-        lmStudio lmStudios = new lmStudio();
-        String respuesta = lmStudios.gemmaResponse(mppImpl.uploadDocument(file).getBody());
-        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+        //lmStudio lmStudios = new lmStudio();
+        //String respuesta = lmStudios.gemmaResponse(mppImpl.uploadDocument(file).getBody());
+        return new ResponseEntity<>("SI", HttpStatus.OK);
     }
 }

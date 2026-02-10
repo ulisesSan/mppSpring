@@ -1,6 +1,7 @@
 package com.telcel.mpp.service.impl;
 
 import com.telcel.mpp.models.MppModel;
+import com.telcel.mpp.models.ProjectModelResponse;
 import com.telcel.mpp.mppOperations.MppOperations;
 import com.telcel.mpp.models.MppModel;
 import com.telcel.mpp.service.MppService;
@@ -26,21 +27,22 @@ import net.sf.mpxj.Task;
 
 public class MppImpl implements MppService {
     private final MppOperations mppOperations = new MppOperations();
-    private  List<MppModel> mppModel = new ArrayList<>();
+    private ProjectModelResponse projectModelResponse = new ProjectModelResponse();
+    
 
     @Autowired
-    public ResponseEntity<List<MppModel>> uploadDocument(MultipartFile inputStream){
+    public ResponseEntity<ProjectModelResponse> uploadDocument(MultipartFile inputStream){
         try {
             byte[] bytes = IOUtils.toByteArray(inputStream.getInputStream());
             String UPLOAD_DIR = "../mppSpring";
             Path path = Paths.get(UPLOAD_DIR + "/" + inputStream.getName()+".mpp");
             Files.write(path, bytes);
-            mppModel = MppOperations.ReadMpp();
+            projectModelResponse = MppOperations.ReadMpp();
             Files.delete(path);
-            return new ResponseEntity<>(mppModel, HttpStatus.OK);
+            return new ResponseEntity<>(projectModelResponse, HttpStatus.OK);
         } catch (IOException e) {
             log.error("Hubo un error al subir archivo "+ e);
-            return new ResponseEntity<>(mppModel, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(projectModelResponse, HttpStatus.BAD_REQUEST);
         }
     }
 }

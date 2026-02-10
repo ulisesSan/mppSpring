@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.telcel</groupId>
 	<artifactId>mpp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>mpp manipuladot</name>
 	<description>Servicio para manipulacion y almacenaje de documentos mpp</description>
 	<url/>
@@ -30,6 +30,10 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+    			<groupId>org.springframework.boot</groupId>
+    			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
