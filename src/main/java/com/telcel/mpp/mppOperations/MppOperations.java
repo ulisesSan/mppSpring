@@ -2,6 +2,7 @@ package com.telcel.mpp.mppOperations;
 
 import com.telcel.mpp.models.MppModel;
 import com.telcel.mpp.models.ProjectModelResponse;
+import com.telcel.mpp.zip.ZipOperations;
 import com.telcel.mpp.models.MppModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +29,13 @@ import net.sf.mpxj.mspdi.MSPDIWriter;
 public class MppOperations {
 
     private static ProjectModelResponse projectModelResponse = new ProjectModelResponse();
+    private static ZipOperations zipOperations = new ZipOperations();
 
     public static ProjectModelResponse ReadMpp(){
 
         List<MppModel> listMpp = new ArrayList<>();
         double avanceTareas = 0;
+        String name = "";
         try {
             
             UniversalProjectReader reader = new UniversalProjectReader();
@@ -48,6 +51,7 @@ public class MppOperations {
                 MppModel model = new MppModel();
                 
                 if (task.getID() == 0) continue;
+                if (task.getID() == 1)name = task.getName();
 
 
                 model.setTaskName(task.getName());
@@ -66,13 +70,18 @@ public class MppOperations {
 
                 listMpp.add(model);
                 avanceTareas = task.getPercentageComplete().doubleValue();
+                
             }
+    
         } catch (Exception e) {
             e.printStackTrace();
+        }finally{
+            ZipOperations.ZipCompress(name);
         }
 
         projectModelResponse.setPersentageComplete(avanceTareas);
         projectModelResponse.setMpp(listMpp);
+        
         
         return projectModelResponse;
     }

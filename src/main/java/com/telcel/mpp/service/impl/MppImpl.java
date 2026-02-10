@@ -38,7 +38,7 @@ public class MppImpl implements MppService {
             Path path = Paths.get(UPLOAD_DIR + "/" + inputStream.getName()+".mpp");
             Files.write(path, bytes);
             projectModelResponse = MppOperations.ReadMpp();
-            Files.delete(path);
+            //Files.delete(path);
             return new ResponseEntity<>(projectModelResponse, HttpStatus.OK);
         } catch (IOException e) {
             log.error("Hubo un error al subir archivo "+ e);
