@@ -62,8 +62,9 @@ public class ZipOperations {
                                 throw new RuntimeException(e);
                         } finally {
                                 renamedFile.delete();
-                                File deleteZip = new File("../mppSpring-main/" + uuid + ".zip");
-                                // deleteZip.delete();
+                                File deleteZip = new File("../mppSpring/" + uuid + ".zip");
+                                File deleteZip2 = new File("./mppSpring/file.mpp");
+                                deleteZip.delete();
                         }
                 }
 
