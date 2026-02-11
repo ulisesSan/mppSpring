@@ -42,11 +42,8 @@ public class MppOperations {
             ProjectFile project = reader.read("../mppSpring/file.mpp");
 
             log.info("Proyecto: " + project.getProjectProperties().getProjectTitle());
-
-            
             
             for (Task task : project.getTasks()) {
-
 
                 MppModel model = new MppModel();
                 
